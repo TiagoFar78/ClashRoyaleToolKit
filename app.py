@@ -39,8 +39,9 @@ def calculateEvolvingCostSingle(card):
 
 @app.route('/')
 def hello_world():
-    player_tag = "%2320CJR09UC"  # Replace with the player tag you want to query
-    api_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjU0Yzc2Njk1LWIwYzQtNGU0NS05NmRjLWQxZDZiNDMwOTljNSIsImlhdCI6MTY5MzA2ODgwMSwic3ViIjoiZGV2ZWxvcGVyL2IwYTg1OGFhLWUxYjYtNzc1OC1iYTM0LTBjMWJjMThjNGYyZCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxMDkuNDkuNTguMTYxIl0sInR5cGUiOiJjbGllbnQifV19.xO9ilrKrVRcOiWF7WDYBrr-9eNb4aqHmzFzJjTiY8pm_ZS5GQseVWlDmhYtAFBmvWHR-BncZlph12qbWij6wkg"  # Replace with your Clash Royale API key
+    player_tag = "%2320CJR09UC"
+    with open('token.txt', 'r') as file:
+        api_key = file.read()
 
     api_url = f"https://api.clashroyale.com/v1/players/{player_tag}"
 
