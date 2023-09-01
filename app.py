@@ -38,7 +38,7 @@ def calculateEvolvingCostSingle(card):
     return total_gold_needed
 
 @app.route('/')
-def hello_world():
+def main():
     player_tag = "%2320CJR09UC"
     with open('token.txt', 'r') as file:
         api_key = file.read()
