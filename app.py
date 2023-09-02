@@ -64,7 +64,7 @@ def main():
         print(f"API request failed with response code: {response.status_code}")
         return str(-1)
 
-    #return render_template('index.html')
+    #  return render_template('index.html')
     
     
 if __name__ == '__main__':
