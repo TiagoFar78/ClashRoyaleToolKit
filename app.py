@@ -1,11 +1,14 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import requests
 from card import Card
 from rarity import Rarity
 from convertor import Convertor
 
 app = Flask(__name__)
+
+# >-----------------------------------{ Calculations }-----------------------------------<
 
 def calculateEvolvingCostMultiple(cards):
     total_gold_needed = 0
@@ -37,13 +40,19 @@ def calculateEvolvingCostSingle(card):
 
     return total_gold_needed
 
-@app.route('/')
-def main():
-    player_tag = "%2320CJR09UC"
+
+# >--------------------------------------{ Player }--------------------------------------<
+
+def fixPlayerTag(playerTag):
+    pass
+
+def getPlayerData(playerTag):
+    #playerTag = fixPlayerTag(playerTag)
+
     with open('token.txt', 'r') as file:
         api_key = file.read()
 
-    api_url = f"https://api.clashroyale.com/v1/players/{player_tag}"
+    api_url = f"https://api.clashroyale.com/v1/players/{playerTag}"
 
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -51,21 +60,45 @@ def main():
     }
 
     response = requests.get(api_url, headers=headers)
-    if response.status_code == 200:
-        json_response = response.json()
-        cards = []
-        for json_card in json_response["cards"]:
-            card = Convertor.to_card(json_card)
-            if card:
-                cards.append(card)
+    return response
 
-        return str(calculateEvolvingCostMultiple(cards))
-    else:
-        print(f"API request failed with response code: {response.status_code}")
-        return str(-1)
+def getPlayerCards(playerData):
+    cards = []
+    for json_card in playerData["cards"]:
+        card = Convertor.to_card(json_card)
+        if card:
+            cards.append(card)
 
-    #  return render_template('index.html')
+    return cards
+
+
+# >--------------------------------------{ Player }--------------------------------------<
+
+def interpretStatusCode(statusCode):
+    if statusCode == 200:
+        return None
+        
+    return str(statusCode)
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    playerTag = request.form.get('clash_royale_tag')
     
+    playerData = getPlayerData(playerTag)
+    errorMessage = interpretStatusCode(playerData.status_code)
     
+    if errorMessage != None:
+        return errorMessage
+    
+    cards = getPlayerCards(playerData.json())
+    evolvingCosts = calculateEvolvingCostMultiple(cards)
+    
+    return render_template('index.html', total_cost=evolvingCosts)
+    
+@app.route('/')
+def index():
+    return render_template('index.html', total_cost=None)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

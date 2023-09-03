@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Flask App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Royale Card Upgrade Cost</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS file -->
 </head>
 <body>
-    <h1>Hello from Flask!</h1>
+    <div class="container">
+        <h1>Clash Royale Card Upgrade Cost Calculator</h1>
+        <p>Enter your Clash Royale tag to calculate the gold cost for upgrading your cards:</p>
+        <form method="POST" action="/calculate">
+            <input type="text" id="input-box" name="clash_royale_tag" placeholder="Enter your Clash Royale tag">
+            <button type="submit">Calculate</button>
+        </form>
+        {% if total_cost is not none %}
+        <div id="output">
+            <p>Total Upgrade Cost: {{ total_cost }} gold</p>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
