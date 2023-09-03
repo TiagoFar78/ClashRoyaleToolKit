@@ -96,7 +96,7 @@ def calculate():
     return render_template('index.html', total_cost=evolvingCosts)
     
 @app.route('/')
-def index():
+def main():
     return render_template('index.html', total_cost=None)
 
 

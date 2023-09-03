@@ -1,0 +1,79 @@
+body {
+    background-color: #000; /* Black background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.8); /* Transparent black background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* White box shadow */
+    overflow: hidden;
+    max-width: 90%; /* Set the maximum width as a percentage of the viewport width */
+    width: 80%; /* Increase the width to cover more of the screen */
+    max-height: 80%; /* Set the maximum height as a percentage of the viewport height */
+    height: 600px; /* Increase the height to cover more of the screen */
+}
+
+.left-section {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    color: #FFF; /* White text */
+}
+
+.right-section {
+    flex: 1;
+    background-color: #FFA500; /* Orange background */
+    color: #000; /* Black text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.gold-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#input-box {
+    width: 80%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 2px solid #FFA500; /* Orange border */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #FFF; /* White text */
+    background-color: rgba(255, 255, 255, 0.1); /* White background with transparency */
+}
+
+button {
+    background-color: #FFA500; /* Orange button background */
+    color: #FFF; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.total-cost {
+    font-size: 30px; /* Increase the font size for better readability */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.cost-container {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
