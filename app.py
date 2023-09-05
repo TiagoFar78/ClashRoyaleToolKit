@@ -43,11 +43,18 @@ def calculateEvolvingCostSingle(card):
 
 # >--------------------------------------{ Player }--------------------------------------<
 
+__CARDINAL_IN_URL__ = "%23"
+
 def fixPlayerTag(playerTag):
-    pass
+    if playerTag[0] == "#":
+        playerTag = __CARDINAL_IN_URL__ + playerTag[1:]
+    elif playerTag[0] != "%":
+        playerTag = __CARDINAL_IN_URL__ + playerTag
+        
+    return playerTag
 
 def getPlayerData(playerTag):
-    #playerTag = fixPlayerTag(playerTag)
+    playerTag = fixPlayerTag(playerTag)
 
     with open('token.txt', 'r') as file:
         api_key = file.read()
@@ -72,7 +79,7 @@ def getPlayerCards(playerData):
     return cards
 
 
-# >--------------------------------------{ Player }--------------------------------------<
+# >--------------------------------------{ Pages }--------------------------------------<
 
 def interpretStatusCode(statusCode):
     if statusCode == 200:
