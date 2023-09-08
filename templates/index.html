@@ -7,25 +7,38 @@
     <link rel="stylesheet" href="static/styles.css"> <!-- Link to your external CSS file -->
 </head>
 <body>
-    <div class="container">
-        <div class="left-section">
-            <h1>Clash Royale Card Upgrade Cost Calculator</h1>
-            <form method="POST" action="/calculate">
-                <input type="text" id="input-box" name="clash_royale_tag" placeholder="Enter your Clash Royale tag">
-                <button type="submit">Calculate</button>
-            </form>
-        </div>
-        <div class="right-section">
-            <div class="cost-container">
-                <img src="static/gold.png" alt="Gold Icon" class="gold-icon">
-                <div class="cost">
-                    {% if total_cost is not none %}
-                    <p>Total Upgrade Cost:</p>
-                    <p class="total-cost">{{ "{:,}".format(total_cost) }} gold</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container-wrapper">
+		<div class="container">
+			<div class="left-section">
+				<h1>Clash Royale Card Upgrade Cost Calculator</h1>
+				<form method="POST" action="/calculate">
+					<input type="text" id="input-box" name="clash_royale_tag" placeholder="Enter your Clash Royale tag">
+					<button type="submit">Calculate</button>
+				</form>
+			</div>
+			<div class="right-section">
+				<div class="cost-container">
+					<img src="static/gold.png" alt="Gold Icon" class="gold-icon">
+					<div class="cost">
+						{% if total_cost is not none %}
+						<p>Total Upgrade Cost:</p>
+						<p class="total-cost">{{ "{:,}".format(total_cost) }} gold</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="flash-messages">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					<ul class="flash-messages">
+						{% for category, message in messages %}
+							<li class="flash-message {{ category }}">{{ message }}</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
 </body>
 </html>

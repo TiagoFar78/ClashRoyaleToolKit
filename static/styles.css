@@ -9,6 +9,16 @@ body {
     height: 100vh;
 }
 
+.container-wrapper {
+    display: flex;
+    flex-direction: column; /* Display the children vertically */
+    align-items: center; /* Center the children horizontally */
+    max-height: 90vh; /* Adjust the maximum height as needed */
+    height: auto; /* Allow the container to expand as needed */
+    max-width: 90%; /* Adjust the maximum width as needed */
+    width: 80%; /* Adjust the width as needed */
+}
+
 .container {
     display: flex;
     background-color: rgba(0, 0, 0, 0.8); /* Transparent black background */
@@ -77,3 +87,26 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.flash-messages {
+    margin-top: 20px; /* Add space between the container and error box */
+    text-align: center;
+}
+
+.flash-messages ul {
+    list-style-type: none; /* Remove bullet points from the list */
+    padding: 0;
+}
+
+.flash-message {
+    background-color: #FF0000; /* Red background for error messages */
+    color: #FFF; /* White text for error messages */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+
+
+
+
