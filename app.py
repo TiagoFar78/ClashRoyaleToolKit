@@ -1,12 +1,11 @@
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, render_template, request, flash, redirect, url_for
 import requests
 from card import Card
 from rarity import Rarity
 from convertor import Convertor
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 
 # >-----------------------------------{ Calculations }-----------------------------------<
 
@@ -46,6 +45,9 @@ def calculateEvolvingCostSingle(card):
 __CARDINAL_IN_URL__ = "%23"
 
 def fixPlayerTag(playerTag):
+    if len(playerTag) == 0:
+        return ""
+
     if playerTag[0] == "#":
         playerTag = __CARDINAL_IN_URL__ + playerTag[1:]
     elif playerTag[0] != "%":
@@ -81,9 +83,23 @@ def getPlayerCards(playerData):
 
 # >--------------------------------------{ Pages }--------------------------------------<
 
+__INVALID_PlAYER_TAG__ = "Invalid player tag!"
+__OVERWHELMING_REQUESTS_AMOUNT__ = "Too much requests right now! Try again later."
+__API_UNDER_MAINTENANCE__ = "Clash royale API is under maintenance. Try again later."
+__UNKNOWN_ERROR__ = "Unknown error."
+
 def interpretStatusCode(statusCode):
-    if statusCode == 200:
-        return None
+    match statusCode:
+        case 200:
+            return None
+        case 404:
+            return __WRONG_PlAYER_TAG__
+        case 429:
+            return __OVERWHELMING_REQUESTS_AMOUNT__
+        case 503:
+            return __API_UNDER_MAINTENANCE__
+        case 500:
+            return __UNKNOWN_ERROR__
         
     return str(statusCode)
 
@@ -95,7 +111,8 @@ def calculate():
     errorMessage = interpretStatusCode(playerData.status_code)
     
     if errorMessage != None:
-        return errorMessage
+        flash(errorMessage, "error")
+        return redirect(url_for('main'))
     
     cards = getPlayerCards(playerData.json())
     evolvingCosts = calculateEvolvingCostMultiple(cards)
