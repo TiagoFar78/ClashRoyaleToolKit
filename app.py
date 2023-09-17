@@ -93,7 +93,7 @@ def interpretStatusCode(statusCode):
         case 200:
             return None
         case 404:
-            return __WRONG_PlAYER_TAG__
+            return __INVALID_PlAYER_TAG__
         case 429:
             return __OVERWHELMING_REQUESTS_AMOUNT__
         case 503:
