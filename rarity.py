@@ -23,7 +23,7 @@ class Rarity:
         self.cards_amount_to_level_up = cards_amount_to_level_up
         
     def isOnMaxLevel(self, level):
-        return level == self.max_level
+        return level >= self.max_level
         
     def getCardsAmountToLevelUp(self, level):
         return self.cards_amount_to_level_up[level - 1]

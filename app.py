@@ -25,7 +25,8 @@ def calculateEvolvingCostSingle(card):
 
     if rarity.isOnMaxLevel(level):
         return 0
-
+    
+    print(card.name)
     cards_to_level_up = rarity.getCardsAmountToLevelUp(level)
     while count >= cards_to_level_up:
         total_gold_needed += rarity.getGoldToLevelUp(level)
